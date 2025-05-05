@@ -118,7 +118,7 @@ function CredentialLoader() {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
+    <div className="flex justify-center items-center h-screen bg-gray-100 bg-[url('/img/slide1-1-bw.jpg')] bg-cover bg-center w-full h-screen">
       <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
         <h1 className="text-2xl font-bold text-center mb-4">Login</h1>
         <input
@@ -135,7 +135,8 @@ function CredentialLoader() {
         />
         <button
           type="submit"
-          className="bg-green-500 text-white py-2 rounded hover:bg-green-600"
+          style={{ backgroundColor: "rgb(231, 195, 24)" }}
+          className="text-white py-1 PX-4 rounded-xl hover:brightness-90"
         >
           Entrar
         </button>

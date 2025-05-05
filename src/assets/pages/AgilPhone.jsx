@@ -237,7 +237,7 @@ export default function AgilPhone() {
   }, [incomingCall]);
 
   return (
-    <div className="phone-app bg-[url('public/img/slide1-1-bw.jpg')] bg-cover bg-center w-full h-screen">
+    <div className="phone-app bg-[url('/img/slide1-1-bw.jpg')] bg-cover bg-center w-full h-screen">
       <div className="flex flex-col text-center p-2 rounded-xl shadow-lg max-w-xs mx-auto">
         <button id="sair" onClick={logout}>
           Sair
