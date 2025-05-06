@@ -237,78 +237,76 @@ export default function AgilPhone() {
   }, [incomingCall]);
 
   return (
-    <div className="phone-app bg-[url('/img/slide1-1-bw.jpg')] bg-cover bg-center w-full h-screen">
-      <div className="flex flex-col text-center p-2 rounded-xl shadow-lg max-w-xs mx-auto">
-        <button id="sair" onClick={logout}>
-          Sair
-        </button>
-        {credentials && ( // Verifica se 'credentials' não é null ou undefined antes de renderizar
-          <>
-            {/* Fragmento React: usado para agrupar múltiplos elementos sem criar uma <div> extra */}
-            <h2>
-              {/* Mostra o nome completo do usuário se as credenciais estiverem carregadas */}
-              Bem Vindo: {credentials.firstName} {credentials.lastName}
-            </h2>
-            <h4>
-              {/* Mostra o ramal do usuário */}
-              Ramal: {credentials.ramal}
-            </h4>
-          </>
-        )}
+    <div className="relative w-full h-screen overflow-hidden">
+      {/* Camada de fundo */}
+      <div className="absolute top-0 left-0 w-full h-full z-0">
+        <div className="bg-[url('/img/slide1-1-bw.jpg')] bg-cover bg-center w-full h-full" />
+        <div className="absolute top-0 left-0 w-full h-full bg-black opacity-40" />
       </div>
 
-      <input
-        //grid p-2 rounded-xl shadow-lg max-w-xs mx-auto
-        className={`grid p-2 rounded-xl shadow-lg max-w-xs mx-auto border-2 text-center ${
-          numeroDiscado.length > 0 && !numeroValido
-            ? "border-red-500"
-            : "border-gray-300"
-        }`}
-        type="tel"
-        name="numberB"
-        id="numberB"
-        value={numeroDiscado}
-        readOnly
-        placeholder="Ex: (xx)xxxx-xxxx"
-      ></input>
-      <div className="status-chamadas text-center">
-        {statusMessage && <p>{statusMessage}</p>}
-        {callTimer && (
-          <CallTimer callStartTime={callStartTime} piscar={piscarTimer} />
-        )}
+      {/* Conteúdo sobre o fundo */}
+      <div className="relative z-10 flex flex-col items-center justify-start pt-4 space-y-4 ">
+        <div className="flex flex-col text-center p-2 rounded-xl  max-w-xs  bg-white/50 opacity-80 shadow-lg">
+          <button id="sair" onClick={logout}>
+            Sair
+          </button>
+          {credentials && (
+            <>
+              <h2>
+                Bem Vindo: {credentials.firstName} {credentials.lastName}
+              </h2>
+              <h4>Ramal: {credentials.ramal}</h4>
+            </>
+          )}
+        </div>
+
+        <input
+          className={`p-2 rounded-xl  max-w-xs border-2 text-center ${
+            numeroDiscado.length > 0 && !numeroValido
+              ? "border-red-500"
+              : "border-gray-300"
+          }`}
+          type="tel"
+          name="numberB"
+          id="numberB"
+          value={numeroDiscado}
+          readOnly
+          placeholder="Ex: (xx)xxxx-xxxx"
+        />
+
+        <div className="status-chamadas text-center">
+          {statusMessage && <p>{statusMessage}</p>}
+          {callTimer && (
+            <CallTimer callStartTime={callStartTime} piscar={piscarTimer} />
+          )}
+        </div>
+
+        {/* Teclado (DialPad) sempre acima da imagem e overlay */}
+        <DialPad
+          onNumberClick={handleNumberClick}
+          onCall={handleCallButton}
+          onMute={handleMute}
+          isMuted={isMuted}
+          callEnabled={numeroValido}
+          chamando={chamando}
+        />
+
+        <SipInit
+          callNotificationRef={callNotificationRef}
+          remoteAudioRef={remoteAudioRef}
+          setCallStartTime={setCallStartTime}
+          setCallTimer={setCallTimer}
+          ua={ua}
+          setUa={setUa}
+          onStatusChange={handleStatusChange}
+          setChamando={setChamando}
+          callStartTime={callStartTime}
+        />
+
+        {/* Áudio */}
+        <audio ref={remoteAudioRef} autoPlay style={{ display: "none" }} />
+        <audio ref={ringtoneRef} src="/toques/dial-tone_uk-88895.mp3" loop />
       </div>
-
-      {/* Componentes de interação */}
-
-      <DialPad
-        onNumberClick={handleNumberClick}
-        onCall={handleCallButton}
-        onMute={handleMute}
-        isMuted={isMuted}
-        callEnabled={numeroValido}
-        chamando={chamando} // Passando chamando como prop
-      />
-
-      {/* Componente de inicialização SIP */}
-      <SipInit
-        callNotificationRef={callNotificationRef}
-        remoteAudioRef={remoteAudioRef}
-        setCallStartTime={setCallStartTime}
-        setCallTimer={setCallTimer}
-        ua={ua}
-        setUa={setUa}
-        onStatusChange={handleStatusChange}
-        setChamando={setChamando}
-        callStartTime={callStartTime}
-      />
-
-      {/* Componente de audio */}
-      <audio
-        ref={remoteAudioRef}
-        autoPlay
-        style={{ display: "none" }} // esconde o player se quiser
-      />
-      <audio ref={ringtoneRef} src="/toques/dial-tone_uk-88895.mp3" loop />
     </div>
   );
 }
