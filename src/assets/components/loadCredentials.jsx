@@ -48,10 +48,13 @@ export async function loadCredentials() {
     const keyBase64 = localStorage.getItem("key");
     const lastName = localStorage.getItem("lastName");
     const firstName = localStorage.getItem("firstName");
-    const user = localStorage.getItem("user");
+    const ramal = localStorage.getItem("user");
+    const authId = localStorage.getItem("authId"); // usado no VoipSip manual
+    const domain = localStorage.getItem("domain");
+    const port = localStorage.getItem("port");
 
     // Verifica se os dados necessários estão no localStorage
-    if (!email || !encryptedPassword || !passwordIV || !keyBase64) {
+    if (!encryptedPassword || !passwordIV || !keyBase64) {
       console.warn("⚠️ Credenciais incompletas no localStorage.");
       return null;
     }
@@ -75,7 +78,11 @@ export async function loadCredentials() {
 
     // Armazena os valores em variáveis globais ou no estado
     return {
-      ramal: user,
+      email,
+      ramal: ramal, // usa ramal se tiver, senão authId
+      authId, // mantém authId separado se precisar diretamente
+      domain,
+      port,
       firstName,
       lastName,
       password: decryptedPassword,

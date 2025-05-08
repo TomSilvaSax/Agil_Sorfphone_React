@@ -100,7 +100,13 @@ export default function AgilPhone() {
     localStorage.removeItem("userEmail");
     localStorage.removeItem("password");
     localStorage.removeItem("passwordIV");
+    localStorage.removeItem("encryptedPassword");
     localStorage.removeItem("key");
+    localStorage.removeItem("authId");
+    localStorage.removeItem("authType");
+    localStorage.removeItem("domain");
+    localStorage.removeItem("port");
+    localStorage.removeItem("extension");
 
     console.log("🔒 Credenciais removidas.");
 

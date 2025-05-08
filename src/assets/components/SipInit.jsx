@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { loadCredentials } from "../components/loadCredentials";
 import { setUserAgent } from "../utils/sipUserAgent";
 import CallTimer from "./CallTimer";
+import { useNavigate } from "react-router-dom";
 
 export default function SipInit({
   callNotificationRef,
@@ -19,6 +20,7 @@ export default function SipInit({
   const localStreamRef = useRef(null);
   const [isMuted, setIsMuted] = useState(false);
   const activeSessionRef = useRef(null);
+  const navigate = useNavigate();
 
   const [incomingCall, setIncomingCall] = useState({
     visible: false,
@@ -156,7 +158,6 @@ export default function SipInit({
   useEffect(() => {
     let userAgent;
     let registerer;
-
     async function initializeSIP() {
       const credentials = await loadCredentials();
 
@@ -167,8 +168,8 @@ export default function SipInit({
 
       console.log("✅ Credenciais carregadas:", credentials);
 
-      const nameDomain = "ubc.agiltelecom.com.br";
-      const sipPort = "6443";
+      const nameDomain = credentials.domain || "ubc.agiltelecom.com.br";
+      const sipPort = credentials.port || "6443";
       const serverUri = `wss://${nameDomain}:${sipPort}`;
       const uri = UserAgent.makeURI(`sip:${credentials.ramal}@${nameDomain}`);
 
@@ -249,6 +250,8 @@ export default function SipInit({
       } catch (err) {
         console.error("❌ Erro ao registrar:", err);
         alert("Erro ao conectar ao servidor SIP: " + err.message);
+        // navigate("/");
+        // logout()
       }
     }
 

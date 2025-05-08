@@ -57,12 +57,12 @@ export default function DialPad({
   }, [buttons, callEnabled, onCall, onNumberClick]);
 
   return (
-    <div className="call-controls dial-pad grid grid-cols-3 gap-6 p-4 bg-white/50 rounded-xl shadow-lg max-w-xs mx-auto">
+    <div className="call-controls dial-pad grid grid-cols-3 gap-2 p-4 bg-white/50 rounded-xl shadow-lg max-w-32 mx-auto">
       {buttons.map((num) => (
         <button
           key={num}
           onClick={() => onNumberClick(num)}
-          className="bg-gray-200 hover:bg-gray-300 font-bold rounded-full shadow h-16 text-xl"
+          className="bg-gray-200 hover:bg-gray-300 font-bold rounded-full shadow h-6 "
         >
           {num}
         </button>
@@ -70,16 +70,16 @@ export default function DialPad({
 
       <button
         onClick={onMute}
-        className="col-span-3 mt-2 font-bold py-2 rounded-xl shadow text-white bg-yellow-500"
+        className="col-span-3 mt-1 font-bold py-1 rounded-xl shadow text-white bg-yellow-500 text-sm"
       >
         {isMuted ? "Desmutar" : "Mutar"}
       </button>
 
-      <div className="flex flex-space-between gap-20">
+      <div className="flex justify-between mt-2">
         <button
           onClick={onCall}
           disabled={!callEnabled}
-          className={`col-span-3 mt-4 font-bold py-2 px-4 rounded-xl shadow text-white hover:bg-opacity-80 ${
+          className={`font-bold py-1 px-2 rounded-xl shadow text-white text-sm hover:bg-opacity-80 ${
             !callEnabled
               ? "bg-gray-400 cursor-not-allowed"
               : chamada
@@ -93,7 +93,7 @@ export default function DialPad({
         <button
           onClick={() => onNumberClick("Backspace")}
           id="apagar"
-          className="bg-gray-200 hover:bg-gray-300 font-bold rounded-full shadow h-16 text-xl"
+          className="bg-gray-200 hover:bg-gray-300 font-bold rounded-full shadow h-9 w-12 text-lg"
         >
           ⌫
         </button>
