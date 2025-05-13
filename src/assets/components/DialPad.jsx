@@ -75,7 +75,7 @@ export default function DialPad({
         {isMuted ? "Desmutar" : "Mutar"}
       </button>
 
-      <div className="flex justify-between mt-2">
+      <div className="flex justify-between mt-1 gap-7">
         <button
           onClick={onCall}
           disabled={!callEnabled}
@@ -93,7 +93,7 @@ export default function DialPad({
         <button
           onClick={() => onNumberClick("Backspace")}
           id="apagar"
-          className="bg-gray-200 hover:bg-gray-300 font-bold rounded-full shadow h-9 w-12 text-lg"
+          className="bg-gray-200 hover:bg-gray-300 font-bold rounded-full shadow  w-12 text-lg"
         >
           ⌫
         </button>
